@@ -1,0 +1,59 @@
+function checkCashRegister(price, cash, cid) {
+  let currencyUnits = {
+        "PENNY": 0.01,
+    "NICKEL": 0.05,
+    "DIME": 0.1,
+    "QUARTER": 0.25,
+    "ONE": 1,
+    "FIVE": 5,
+    "TEN": 10,
+    "TWENTY": 20,
+    "ONE HUNDRED": 100
+  };
+
+ 
+  let totalCID = 0;
+  for (let [currency, amount] of cid) {
+    totalCID += amount;
+  }
+
+  let changeDue = cash - price;
+  let resultChange = [];
+
+  // If total cash in drawer is less than change due, return INSUFFICIENT_FUNDS
+  if (totalCID < changeDue) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }
+   // If total cash in drawer equals change due, return CLOSED
+  if (totalCID === changeDue) {
+    return {status: "CLOSED", change: cid};
+  }
+
+  // Iterate through currency units from highest to lowest
+  const sortedCurrencies = Object.keys(currencyUnits).reverse();
+
+  for (let currency of sortedCurrencies) {
+    const unitValue = currencyUnits[currency];
+    const cidIndex = cid.findIndex((item) => item[0] === currency);
+    let unitQuantity = cid[cidIndex][1];
+
+    if (changeDue >= unitValue && unitQuantity > 0) {
+      let amountToReturn = 0;
+      while (changeDue >= unitValue && unitQuantity > 0) {
+        amountToReturn += unitValue;
+        changeDue = Math.round((changeDue - unitValue) * 100) / 100;
+        unitQuantity -= unitValue;
+      }
+      resultChange.push([currency, amountToReturn]);
+    }
+  }
+  // If there's still changeDue left, return INSUFFICIENT_FUNDS
+  if (changeDue > 0) {
+    return {status: "INSUFFICIENT_FUNDS", change: []};
+  }
+
+  return {status: "OPEN", change: resultChange};
+  
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
