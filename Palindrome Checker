@@ -1,0 +1,7 @@
+function palindrome(str) {
+  const alpanumericOnly=str.toLowerCase().match(/[a-z0-9]/g);
+
+  return alpanumericOnly.join('')===alpanumericOnly.reverse().join('');
+}
+
+palindrome("eye");
