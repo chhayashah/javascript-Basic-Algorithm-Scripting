@@ -1,0 +1,2 @@
+Static variable: A static variable in JavaScript is basically a property of the class which is not used on the object of the class but is used in the class itself. This static variable is stored into the data segment of the memory and its value is shared among all the objects/instances created in that particular class. 
+To declare a variable/function as static we used the ‘static‘ keyword. In the case of a static variable, its value is set at the runtime itself and it is a global value that can be used by the instance of the class.
