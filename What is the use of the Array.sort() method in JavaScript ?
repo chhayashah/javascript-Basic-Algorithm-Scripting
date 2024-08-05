@@ -1,0 +1,7 @@
+The Array.sort() method is used to sort the elements of an array in place and returns the sorted array.
+
+Example: Here, the sort() method is called on an array of numbers. By default, sort() sorts elements as strings, so it sorts the numbers based on their Unicode code points. As a result, the numbers are sorted in ascending order. The sorted array is then logged to the console.
+
+let numbers = [4, 2, 8, 1, 6];
+numbers.sort();
+console.log(numbers); // Output: [1, 2, 4, 6, 8]
